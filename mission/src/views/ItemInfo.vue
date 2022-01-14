@@ -100,6 +100,8 @@ export default {
     },
   },
   mounted() {
+  },
+  created() {
     this.initBindData();
   },
 };
