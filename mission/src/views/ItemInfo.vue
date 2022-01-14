@@ -31,24 +31,32 @@
     <div class="divider"></div>
       <!-- 상품 정보 -->
     <div class="info-item">
-      <div class="info-item-title">{{itemInfo[0].title}}</div>
+      <div class="info-item-title">{{this.title}}</div>
       <div class="info-item-priceinfo">
-        <div v-if="itemInfo[0].isDiscount===false">
-          <div class="info-item-priceinfo-price">{{itemInfo[0].price}}</div>
+        <div v-if="this.isDiscount===false">
+          <div class="info-item-priceinfo-price">{{this.price}}</div>
         </div>
         <div v-else>
           <div class="discount-price-info">
-            <div class="info-item-priceinfo-rate">{{itemInfo[0].discountRate}} %</div>
-            <div class="info-item-priceinfo-discountPrice">{{itemInfo[0].discountPrice}}
+            <div class="info-item-priceinfo-rate">{{this.discountRate}} %</div>
+            <div class="info-item-priceinfo-discountPrice">{{this.discountPrice}}
               <span class="won">원</span>
             </div>
-            <div class="info-item-priceinfo-origin_price">{{itemInfo[0].price}}
+            <div class="info-item-priceinfo-origin_price">{{this.price}}
               <span class="originwon">원</span>
             </div>
           </div>
         </div>
       </div>
+      <div class="info-title">상품정보</div>
     </div>
+      <div class="divider"></div>
+
+      <div class="info-content" v-html="itemInfo[0].content"></div>
+
+      <div class="info-review">리뷰</div>
+      <div class="divider"></div>
+
     <!-- 구매버튼 -->
     <div class="bottom-botton">
       <div v-if="itemInfo[0].isDiscount===false">
@@ -97,6 +105,10 @@ export default {
       this.mainImageUrl = itemInfo[0].mainImageUrl;
       this.author = itemInfo[0].author;
       this.isLiked = itemInfo[0].isLiked;
+      this.title = itemInfo[0].title;
+      this.price = itemInfo[0].price;
+      this.discountRate = itemInfo[0].discountRate;
+      this.discountPrice = itemInfo[0].discountPrice;
     },
   },
   mounted() {
@@ -173,12 +185,15 @@ export default {
   margin-left:5px;
   justify-content: space-between;
 }
+.info-item-priceinfo-price{
+  font-weight: bold;
+}
 .info-item-priceinfo-rate{
   color: red;
     font-size: 16px;
 }
 .info-item-priceinfo-discountPrice{
-  font-size: 16px;
+  font-weight: bold;
 }
 .won{
     font-size: 12px;
@@ -192,6 +207,18 @@ export default {
 .originwon{
   font-size: 8px;
   color: #847F7F;
+}
+
+.info-title{
+  font-size: 20px;
+  font-weight: bold;
+  margin-top:40px;
+}
+
+.info-content{
+  margin-top:20px;
+  max-width: 375px;
+  width:100%;
 }
 
 .like-button{
