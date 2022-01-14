@@ -11,7 +11,7 @@ const ITEMINFOS = [
     },
     mainImageUrl: 'https://user-images.githubusercontent.com/66211721/149165057-fec02ae9-e0a4-4690-93f8-17328de38ab7.png',
     title: '남성용 반지갑',
-    content: '호불호 없는 남성용 반지갑입니다!',
+    content: '<div class="content" style="text-align:left; margin-left:20px;">호불호 없는 지갑입니다.</div> <img src="https://user-images.githubusercontent.com/66211721/149165422-61d20204-8e39-49da-a248-0e1b6bed1e3d.png" alt="contentImg"  style="width:100%; height:100%; max-width: 375px; max-height: 375px;"/>',
     contentImageUrl: 'https://user-images.githubusercontent.com/66211721/149165422-61d20204-8e39-49da-a248-0e1b6bed1e3d.png',
     quantity: 5,
     price: 36500,
