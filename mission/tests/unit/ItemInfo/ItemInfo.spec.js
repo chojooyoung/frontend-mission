@@ -1,7 +1,7 @@
 import { mount, shallow } from '@vue/test-utils';
 import ItemInfoPage from '@/views/ItemInfo.vue';
 import itemInfo from '@/data/itemInfo';
-import Like from '@/components/Like.vue';
+import Like from '@/components/LikeButton.vue';
 
 describe('ItemInfoPage', () => {
   it('redners ItemInfoPage', () => {

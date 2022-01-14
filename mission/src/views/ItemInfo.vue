@@ -63,7 +63,7 @@
         <button class="buy-botton">{{itemInfo[0].price}} 원 구매</button>
       </div>
       <div v-else>
-        <button class="buy-botton">{{itemInfo[0].discountPrice}}</button>
+        <button class="buy-botton">{{itemInfo[0].discountPrice}} 원 구매</button>
       </div>
     </div>
   </div>
@@ -72,7 +72,7 @@
 
 <script>
 import itemInfo from '@/data/itemInfo';
-import Like from '@/components/Like.vue';
+import Like from '@/components/LikeButton.vue';
 
 export default {
   name: 'ItemInfoPage',
@@ -238,6 +238,16 @@ export default {
   margin-top:20px;
   max-width: 375px;
   width:100%;
+}
+
+.info-review{
+  margin-top:20px;
+  max-width: 340px;
+  width:100%;
+  display:flex;
+  justify-content: left;
+  font-size: 20px;
+  font-weight: bold;
 }
 
 .like-button{
