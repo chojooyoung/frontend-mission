@@ -51,4 +51,19 @@ describe('ItemInfoPage', () => {
     await expect(wrapper.find('.info-seller-subinfo-name').text()).toEqual('지갑전문');
     await expect(wrapper.find('.info-seller-subinfo-tag').text()).toEqual('#지갑 #잡화');
   });
+
+  it('renders and viding data an item-info', async () => {
+    const wrapper = mount(ItemInfoPage);
+    await wrapper.setData({
+      title: '지갑',
+      isDiscount: 'true',
+      price: '1',
+      discountRate: '30',
+      discountPrice: '0.7',
+    });
+    await expect(wrapper.find('.info-item-title').text()).toEqual('지갑');
+    await expect(wrapper.find('.info-item-priceinfo-rate').text()).toEqual('30 %');
+    await expect(wrapper.find('.info-item-priceinfo-origin_price').text()).toEqual('1 원');
+    await expect(wrapper.find('.info-item-priceinfo-discountPrice').text()).toEqual('0.7 원');
+  });
 });
