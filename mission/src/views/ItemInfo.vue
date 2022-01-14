@@ -1,24 +1,61 @@
 <template>
 <div id='item-info-page'>
   <div class="info">
-    <img class="info-main_img" :src="`${itemInfo[0].mainImageUrl}`" alt="itemImg"/>
+    <img class="info-main_img" :src="`${this.mainImageUrl}`" alt="itemImg"
+    style="width:100%;
+          height:100%;
+          max-width: 375px;
+          max-height: 375px;"
+    />
     <div class="info-seller-wrapper">
       <!-- 판매자 정보 -->
       <div class="info-seller">
-        <div v-if="itemInfo[0].author.profileImageUrl === 'null'">
-          <img src="../assets/basicUserAvatar.svg" alt="deafaultUserImg"/>
+        <div v-if="this.author.profileImageUrl === 'null'">
+          <img class="info-seller-defaultImg"
+              src="../assets/basicUserAvatar.svg"
+              alt="deafaultUserImg"/>
         </div>
         <div v-else>
           <img class="info-seller-profileImg"
-               :src="`${itemInfo[0].author.profileImageUrl}`"
+               :src="`${this.author.profileImageUrl}`"
                alt="sellerProfileImg"
           />
         </div>
         <div class="info-seller-subinfo">
-          <div class="info-seller-subinfo-name">{{itemInfo[0].author.nickname}}</div>
-          <div class="info-seller-subinfo-tag">{{itemInfo[0].author.tag}}</div>
+          <div class="info-seller-subinfo-name">{{this.author.nickname}}</div>
+          <div class="info-seller-subinfo-tag">{{this.author.tag}}</div>
         </div>
-        <Like class="like-button" :isLike="itemInfo[0].isLiked" />
+        <Like class="like-button" :isLike="this.isLiked" />
+      </div>
+    </div>
+    <div class="divider"></div>
+      <!-- 상품 정보 -->
+    <div class="info-item">
+      <div class="info-item-title">{{itemInfo[0].title}}</div>
+      <div class="info-item-priceinfo">
+        <div v-if="itemInfo[0].isDiscount===false">
+          <div class="info-item-priceinfo-price">{{itemInfo[0].price}}</div>
+        </div>
+        <div v-else>
+          <div class="discount-price-info">
+            <div class="info-item-priceinfo-rate">{{itemInfo[0].discountRate}} %</div>
+            <div class="info-item-priceinfo-discountPrice">{{itemInfo[0].discountPrice}}
+              <span class="won">원</span>
+            </div>
+            <div class="info-item-priceinfo-origin_price">{{itemInfo[0].price}}
+              <span class="originwon">원</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 구매버튼 -->
+    <div class="bottom-botton">
+      <div v-if="itemInfo[0].isDiscount===false">
+        <button class="buy-botton">{{itemInfo[0].price}} 원 구매</button>
+      </div>
+      <div v-else>
+        <button class="buy-botton">{{itemInfo[0].discountPrice}}</button>
       </div>
     </div>
   </div>
@@ -37,29 +74,56 @@ export default {
   data() {
     return {
       itemInfo,
+      author: {},
+      mainImageUrl: '',
+      title: '',
+      content: '',
+      contentImageUrl: '',
+      price: 0,
+      createdDate: '',
+      modifiedDate: '',
+      likeCount: 0,
+      viewCount: 0,
+      isLiked: '',
+      isDiscount: '',
+      discountRate: 0,
+      discountPrice: 0,
+      priceToBuy: 0,
     };
   },
   methods: {
-
+    initBindData() {
+      this.author = itemInfo[0].author;
+      this.mainImageUrl = itemInfo[0].mainImageUrl;
+      this.author = itemInfo[0].author;
+      this.isLiked = itemInfo[0].isLiked;
+    },
   },
-  computed: {
-
+  mounted() {
+    this.initBindData();
   },
 };
 
 </script>
 
 <style scoped>
+.divider{
+  margin-top:10px;
+  width:100%;
+  max-width: 375px;
+  border-bottom: solid 1px #D2D2D2;
+}
 .info{
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
+}
+.bottom-botton{
+  position:fixed;
+  top:600px;
 }
 .info-main_img{
-  width:100%;
-  height:100%;
-  max-width: 375px;
-  max-height: 375px;
 
 }
 .info-seller-wrapper{
@@ -87,7 +151,49 @@ export default {
   color:#847F7F;
   font-size: 12px;
   }
+
+.info-item{
+  max-width: 340px;
+  width:100%;
+  height:100%;
+  text-align: left;
+}
+
+.info-item-title{
+  font-size: 30px;
+  font-weight: bold;
+}
+.discount-price-info{
+  max-width: 170px;
+  width:100%;
+  display: flex;
+  margin-top:10px;
+  margin-left:5px;
+  justify-content: space-between;
+}
+.info-item-priceinfo-rate{
+  color: red;
+    font-size: 16px;
+}
+.info-item-priceinfo-discountPrice{
+  font-size: 16px;
+}
+.won{
+    font-size: 12px;
+}
+.info-item-priceinfo-origin_price{
+  margin-top:4px;
+  font-size: 12px;
+  color: #847F7F;
+  text-decoration:line-through
+}
+.originwon{
+  font-size: 8px;
+  color: #847F7F;
+}
+
 .like-button{
   margin-left: auto;
+  cursor: pointer;
 }
 </style>
