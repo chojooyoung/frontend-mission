@@ -52,7 +52,7 @@
     </div>
       <div class="divider"></div>
 
-      <div class="info-content" v-html="itemInfo[0].content"></div>
+      <div class="info-content" v-html="this.content"></div>
 
       <div class="info-review">리뷰</div>
       <div class="divider"></div>
@@ -109,6 +109,7 @@ export default {
       this.price = itemInfo[0].price;
       this.discountRate = itemInfo[0].discountRate;
       this.discountPrice = itemInfo[0].discountPrice;
+      this.content = itemInfo[0].content;
     },
   },
   mounted() {
