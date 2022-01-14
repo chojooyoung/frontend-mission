@@ -38,7 +38,7 @@
         </div>
         <div v-else>
           <div class="discount-price-info">
-            <div class="info-item-priceinfo-rate">{{this.discountRate}} %</div>
+            <div class="info-item-priceinfo-rate">{{this.discountRate}}%</div>
             <div class="info-item-priceinfo-discountPrice">{{this.discountPrice}}
               <span class="won">원</span>
             </div>
@@ -135,8 +135,25 @@ export default {
   position: relative;
 }
 .bottom-botton{
+  width:100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-top: solid 1px #D2D2D2;
   position:fixed;
-  top:600px;
+  /* top:579px; */
+  bottom:0;
+}
+.buy-botton{
+  cursor: pointer;
+  max-width:250px;
+  width:100%;
+  height:50px;
+  border:none;
+  border-radius: 5px;
+  background-color: black;
+  color:white;
+}
+.buy-botton:hover{
+  background-color: gray;
 }
 .info-main_img{
 
@@ -168,6 +185,7 @@ export default {
   }
 
 .info-item{
+  margin-top:20px;
   max-width: 340px;
   width:100%;
   height:100%;
