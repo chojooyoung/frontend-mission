@@ -58,15 +58,13 @@ describe('ItemInfoPage', () => {
     await wrapper.setData({
       title: '지갑',
       isDiscount: 'true',
-      price: '10',
+      price: '100000',
       discountRate: 30,
-      discountPrice: '7',
       content: '<div class="content" style="text-align:left; margin-left:20px;">호불호 없는 지갑입니다.</div>',
     });
     expect(wrapper.find('.info-item-title').text()).toEqual('지갑');
     expect(wrapper.find('.info-item-priceinfo-rate').text()).toEqual('30%');
-    expect(wrapper.find('.info-item-priceinfo-origin_price').text()).toEqual('10 원');
-    expect(wrapper.find('.info-item-priceinfo-discountPrice').text()).toEqual('7 원');
+    expect(wrapper.find('.info-item-priceinfo-origin_price').text()).toEqual('100,000 원');
     expect(wrapper.find('.content').text()).toEqual('호불호 없는 지갑입니다.');
   });
 

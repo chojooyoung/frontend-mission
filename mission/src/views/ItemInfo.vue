@@ -34,15 +34,15 @@
       <div class="info-item-title">{{this.title}}</div>
       <div class="info-item-priceinfo">
         <div v-if="this.isDiscount===false">
-          <div class="info-item-priceinfo-price">{{this.price}}</div>
+          <div class="info-item-priceinfo-price">{{priceAddComma}}</div>
         </div>
         <div v-else>
           <div class="discount-price-info">
             <div class="info-item-priceinfo-rate">{{this.discountRate}}%</div>
-            <div class="info-item-priceinfo-discountPrice">{{this.discountPrice}}
+            <div class="info-item-priceinfo-discountPrice">{{priceToBuyPriceAddComma}}
               <span class="won">원</span>
             </div>
-            <div class="info-item-priceinfo-origin_price">{{this.price}}
+            <div class="info-item-priceinfo-origin_price">{{priceAddComma}}
               <span class="originwon">원</span>
             </div>
           </div>
@@ -61,10 +61,10 @@
     <!-- 구매버튼 -->
     <div class="bottom-botton">
       <div v-if="itemInfo[0].isDiscount===false">
-        <button class="buy-botton">{{itemInfo[0].price}} 원 구매</button>
+        <button class="buy-botton">{{priceAddComma}} 원 구매</button>
       </div>
       <div v-else>
-        <button class="buy-botton">{{itemInfo[0].discountPrice}} 원 구매</button>
+        <button class="buy-botton">{{priceToBuyPriceAddComma}} 원 구매</button>
       </div>
     </div>
   </div>
@@ -114,7 +114,22 @@ export default {
       this.price = itemInfo[0].price;
       this.discountRate = itemInfo[0].discountRate;
       this.discountPrice = itemInfo[0].discountPrice;
+      this.priceToBuy = itemInfo[0].priceToBuy;
       this.content = itemInfo[0].content;
+    },
+    addCommaToprice(price) {
+      return price.replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
+    },
+  },
+  computed: {
+    priceAddComma() {
+      return this.addCommaToprice(this.price);
+    },
+    discountPriceAddComma() {
+      return this.addCommaToprice(this.discountPrice);
+    },
+    priceToBuyPriceAddComma() {
+      return this.addCommaToprice(this.priceToBuy);
     },
   },
   created() {
