@@ -56,6 +56,7 @@
 
       <div class="info-review">리뷰</div>
       <div class="divider"></div>
+      <ReviewList class="reviewlist" :postId="this.id"/>
 
     <!-- 구매버튼 -->
     <div class="bottom-botton">
@@ -67,21 +68,24 @@
       </div>
     </div>
   </div>
+  <footer></footer>
 </div>
 </template>
 
 <script>
 import itemInfo from '@/data/itemInfo';
 import Like from '@/components/LikeButton.vue';
+import ReviewList from '@/components/ReviewList.vue';
 
 export default {
   name: 'ItemInfoPage',
   components: {
-    Like,
+    Like, ReviewList,
   },
   data() {
     return {
       itemInfo,
+      id: '',
       author: {},
       mainImageUrl: '',
       title: '',
@@ -101,6 +105,7 @@ export default {
   },
   methods: {
     initBindData() {
+      this.id = itemInfo[0].id;
       this.author = itemInfo[0].author;
       this.mainImageUrl = itemInfo[0].mainImageUrl;
       this.author = itemInfo[0].author;
@@ -111,8 +116,6 @@ export default {
       this.discountPrice = itemInfo[0].discountPrice;
       this.content = itemInfo[0].content;
     },
-  },
-  mounted() {
   },
   created() {
     this.initBindData();
@@ -154,10 +157,7 @@ export default {
 }
 .buy-botton:hover{
   background-color: gray;
-}
-.info-main_img{
-
-}
+  }
 .info-seller-wrapper{
   max-width: 340px;
   width:100%;
@@ -253,5 +253,8 @@ export default {
 .like-button{
   margin-left: auto;
   cursor: pointer;
+}
+footer{
+  height:50px;
 }
 </style>
