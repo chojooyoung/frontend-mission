@@ -103,7 +103,7 @@ describe('ItemInfoPage', () => {
     expect(wrapper.find('.review-content').exists()).toBe(true);
   });
 
-  it('redners reviewList-content', () => {
+  it('redners reviewList-img', () => {
     const wrapper = mount(ReviewList);
     expect(wrapper.find('.review-list-review_img').exists()).toBe(true);
   });
