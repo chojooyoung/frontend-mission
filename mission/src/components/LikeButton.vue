@@ -1,5 +1,5 @@
 <template>
-      <div class ="userLikePost" v-if="this.isLiked=== true">
+      <div class ="userLikePost" v-if="isLiked=== true">
         <img  src="../assets/like.svg" alt="" @click="likeButtonClick"/>
       </div>
       <div class ="userDislikePost" v-else>

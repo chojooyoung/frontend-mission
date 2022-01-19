@@ -1,7 +1,7 @@
 <template>
 <div id='item-info-page'>
   <div class="info">
-    <img class="info-main_img" :src="`${this.mainImageUrl}`" alt="itemImg"
+    <img class="info-main_img" :src="`${mainImageUrl}`" alt="itemImg"
     style="width:100%;
           height:100%;
           max-width: 375px;
@@ -10,35 +10,35 @@
     <div class="info-seller-wrapper">
       <!-- 판매자 정보 -->
       <div class="info-seller">
-        <div v-if="this.author.profileImageUrl === 'null'">
+        <div v-if="author.profileImageUrl === 'null'">
           <img class="info-seller-defaultImg"
               src="../assets/basicUserAvatar.svg"
               alt="deafaultUserImg"/>
         </div>
         <div v-else>
           <img class="info-seller-profileImg"
-               :src="`${this.author.profileImageUrl}`"
+               :src="`${author.profileImageUrl}`"
                alt="sellerProfileImg"
           />
         </div>
         <div class="info-seller-subinfo">
-          <div class="info-seller-subinfo-name">{{this.author.nickname}}</div>
-          <div class="info-seller-subinfo-tag">{{this.author.tag}}</div>
+          <div class="info-seller-subinfo-name">{{author.nickname}}</div>
+          <div class="info-seller-subinfo-tag">{{author.tag}}</div>
         </div>
-        <Like class="like-button" :isLike="this.isLiked" />
+        <Like class="like-button" :isLike="isLiked" />
       </div>
     </div>
     <div class="divider"></div>
       <!-- 상품 정보 -->
     <div class="info-item">
-      <div class="info-item-title">{{this.title}}</div>
+      <div class="info-item-title">{{title}}</div>
       <div class="info-item-priceinfo">
-        <div v-if="this.isDiscount===false">
+        <div v-if="isDiscount===false">
           <div class="info-item-priceinfo-price">{{priceAddComma}}</div>
         </div>
         <div v-else>
           <div class="discount-price-info">
-            <div class="info-item-priceinfo-rate">{{this.discountRate}}%</div>
+            <div class="info-item-priceinfo-rate">{{discountRate}}%</div>
             <div class="info-item-priceinfo-discountPrice">{{priceToBuyPriceAddComma}}
               <span class="won">원</span>
             </div>
@@ -52,11 +52,11 @@
     </div>
       <div class="divider"></div>
 
-      <div class="info-content" v-html="this.content"></div>
+      <div class="info-content" v-html="content"></div>
 
       <div class="info-review">리뷰</div>
       <div class="divider"></div>
-      <ReviewList class="reviewlist" :postId="this.id"/>
+      <ReviewList class="reviewlist" :postId="id"/>
 
     <!-- 구매버튼 -->
     <div class="bottom-botton">
