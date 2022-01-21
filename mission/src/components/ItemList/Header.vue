@@ -39,8 +39,11 @@ export default {
 
 <style>
 .header-wrapper{
-    position: relative;
-    width:100%;
+  align-content: center;
+  align-items: center;
+  position: relative;
+  display: flex;
+  justify-content: center;
 }
 .header_visible {
     animation: fade-in 1s;
