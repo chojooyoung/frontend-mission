@@ -1,4 +1,4 @@
-const itemList = {
+const ITEMLIST = {
   items: [
     {
       id: 1,
@@ -127,3 +127,4 @@ const itemList = {
     isLastPage: true,
   },
 };
+export default ITEMLIST;
