@@ -3,13 +3,13 @@ import ItemListPage from '@/views/ItemList.vue';
 import Item from '@/components/ItemList/Item.vue';
 
 describe('ItemListItem', () => {
-  it('redners ItemListItem', () => {
+  it('renders ItemListItem', () => {
     const wrapper = mount(ItemListPage);
 
     expect(wrapper.find('.item-list-item').exists()).toBe(true);
   });
 
-  it('redners ItemComponent props data', async () => {
+  it('renders ItemComponent props data', async () => {
     const wrapper = await mount(Item);
 
     await wrapper.setData({
@@ -28,7 +28,7 @@ describe('ItemListItem', () => {
     expect(wrapper.find('.item-content').text()).toEqual('짱짱한 가죽 지갑입니다.');
   });
 
-  it('redners original price if product is discounted', async () => {
+  it('renders original price if product is discounted', async () => {
     const testOriginalPrice = 19800;
     const testPrice = 12510;
     const testDistcountRate = ((testOriginalPrice - testPrice) / testOriginalPrice) * 100;
@@ -49,7 +49,7 @@ describe('ItemListItem', () => {
     expect(wrapper.find('.item-origin_price').text()).toEqual(`${testOriginalPrice.toLocaleString()}원`);
   });
 
-  it('redners original price if product is empty or undefined', async () => {
+  it('renders original price if product is empty or undefined', async () => {
     const wrapper = mount(Item);
 
     await wrapper.setData({});

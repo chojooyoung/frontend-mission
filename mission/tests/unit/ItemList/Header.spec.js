@@ -2,7 +2,7 @@ import { mount } from '@vue/test-utils';
 import ItemListPage from '@/views/ItemList.vue';
 import Header from '@/components/ItemList/Header.vue';
 
-describe('ItemListItem', () => {
+describe('itemListHeader', () => {
   it('check HeaderComponent props render test', async () => {
     const wrapper = mount(ItemListPage);
 
