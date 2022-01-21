@@ -4,18 +4,20 @@
     <div class="item-wrapper">
       <Item  class="item-list" v-for="item in items" :item="item" :key="item.id"/>
     </div>
-    </div>
+    <Navgation />
+  </div>
 </template>
 
 <script>
 import ItemList from '@/data/itemList';
 import Header from '@/components/ItemList/Header.vue';
 import Item from '@/components/ItemList/Item.vue';
+import Navgation from '@/components/ItemList/Navigation.vue';
 
 export default {
   name: 'ItemListPage',
   components: {
-    Header, Item,
+    Header, Item, Navgation,
   },
   data() {
     return {
