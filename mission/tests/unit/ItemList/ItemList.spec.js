@@ -13,4 +13,10 @@ describe('ItemListPage', () => {
 
     expect(wrapper.find('.item-list-header').exists()).toBe(true);
   });
+
+  it('redners ItemComponent', () => {
+    const wrapper = mount(ItemListPage);
+
+    expect(wrapper.find('.item-list').exists()).toBe(true);
+  });
 });
