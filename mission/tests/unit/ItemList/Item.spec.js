@@ -10,32 +10,22 @@ describe('ItemListItem', () => {
   });
 
   it('redners ItemComponent props data', async () => {
-    const wrapper = mount(ItemListPage);
+    const wrapper = await mount(Item);
 
-    const itemWrapper = setTimeout(() => {
-      mount(Item);
-    }, 1000);
+    await wrapper.setData({
+      itemInfo: {
+        id: 1,
+        mainImageUrl: 'https://user-images.githubusercontent.com/66211721/149165057-fec02ae9-e0a4-4690-93f8-17328de38ab7.png',
+        title: '남성용 반지갑',
+        content: '짱짱한 가죽 지갑입니다.',
+      },
+    });
 
-    await setTimeout(() => {
-      wrapper.setData({
-        items: [
-          {
-            id: 1,
-            mainImageUrl: 'https://user-images.githubusercontent.com/66211721/149165057-fec02ae9-e0a4-4690-93f8-17328de38ab7.png',
-            title: '남성용 반지갑',
-            content: '짱짱한 가죽 지갑입니다.',
-          },
-        ],
-      });
-    }, 1000);
+    expect(wrapper.find('.item-title').text()).toEqual('남성용 반지갑');
 
-    setTimeout(() => {
-      expect(itemWrapper.find('.item-title').text()).toEqual('남성용 반지갑');
+    expect(wrapper.find('.item-img').attributes().src).toEqual('https://user-images.githubusercontent.com/66211721/149165057-fec02ae9-e0a4-4690-93f8-17328de38ab7.png');
 
-      expect(itemWrapper.find('.item-img').attributes().src).toEqual('https://user-images.githubusercontent.com/66211721/149165057-fec02ae9-e0a4-4690-93f8-17328de38ab7.png');
-
-      expect(itemWrapper.find('.item-content').text()).toEqual('짱짱한 가죽 지갑입니다.');
-    }, 1000);
+    expect(wrapper.find('.item-content').text()).toEqual('짱짱한 가죽 지갑입니다.');
   });
 
   it('redners original price if product is discounted', async () => {
@@ -43,29 +33,27 @@ describe('ItemListItem', () => {
     const testPrice = 12510;
     const testDistcountRate = ((testOriginalPrice - testPrice) / testOriginalPrice) * 100;
 
-    const wrapper = mount(ItemListPage);
+    const wrapper = mount(Item);
 
-    const itemWrapper = setTimeout(() => {
-      mount(Item);
-    }, 1000);
+    await wrapper.setData({
+      itemInfo: {
+        price: testPrice,
+        original_price: testOriginalPrice,
+      },
+    });
 
-    await setTimeout(() => {
-      wrapper.setData({
-        items: [
-          {
-            price: testPrice,
-            original_price: testOriginalPrice,
-          },
-        ],
-      });
-    }, 1000);
+    expect(wrapper.find('.item-price_rate').text()).toEqual(`${testDistcountRate.toFixed(0)}%`);
 
-    setTimeout(() => {
-      expect(itemWrapper.find('.item-price_rate').text()).toEqual(`${testDistcountRate.toFixed(0)}%`);
+    expect(wrapper.find('.item-price').text()).toEqual(`${testPrice.toLocaleString()}원`);
 
-      expect(itemWrapper.find('.item-price').text()).toEqual(`${testPrice.toLocaleString()}`);
+    expect(wrapper.find('.item-origin_price').text()).toEqual(`${testOriginalPrice.toLocaleString()}원`);
+  });
 
-      expect(itemWrapper.find('.item-origin_price').text()).toEqual(`${testOriginalPrice.toLocaleString()}`);
-    }, 1000);
+  it('redners original price if product is empty or undefined', async () => {
+    const wrapper = mount(Item);
+
+    await wrapper.setData({});
+
+    expect(wrapper.find('.item').exists()).toBe(false);
   });
 });
