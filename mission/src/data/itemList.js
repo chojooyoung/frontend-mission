@@ -77,7 +77,7 @@ const ITEMLIST = {
       id: 6,
       mainImageUrl: 'https://user-images.githubusercontent.com/66211721/149165057-fec02ae9-e0a4-4690-93f8-17328de38ab7.png',
       title: '남성용 반지갑6',
-      content: '짱짱한 가죽 지갑입니다.',
+      content: '짱짱한 가죽 지갑입니다. 아주 튼튼하고 좋아요',
       price: '36500',
       createdDate: '2021-12-10T14:23:53',
       modifiedDate: '2021-12-10T14:23:53',
