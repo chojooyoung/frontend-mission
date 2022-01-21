@@ -1,19 +1,21 @@
 <template>
   <div class="item-list-item">
-    <div class=item>
-      <img class="item-img" :src="item.mainImageUrl"/>
+    <div v-if="isNotFound()">상품검색 결과가 없습니다.</div>
+    <div v-else>
+      <div class=item>
+      <img class="item-img" :src="itemInfo.mainImageUrl"/>
       <div class="item-price_info">
         <div class="item-price_rate" v-if="isDiscounted()">{{getDiscountRate}}</div>
-        <div class="item-price">{{ addCommaToPrice(item.price)  }}</div>
+        <div class="item-price">{{ addCommaToPrice(itemInfo.price)  }}</div>
         <div class="item-origin_price" v-if="isDiscounted()">
-        {{addCommaToPrice(item.original_price)}}
+        {{addCommaToPrice(itemInfo.original_price)}}
         </div>
       </div>
       <div class="item-text_info">
-        <div class="item-title">{{item.title}}</div>
-        <div class="item-content">{{item.content}}</div>
+        <div class="item-title">{{itemInfo.title}}</div>
+        <div class="item-content">{{itemInfo.content}}</div>
       </div>
-
+    </div>
 </div>
   </div>
 </template>
@@ -25,17 +27,33 @@ export default {
     item: {},
     key: String,
   },
+  data() {
+    return {
+      itemInfo: this.item,
+    };
+  },
   methods: {
+    isNotFound() {
+      if (this.itemInfo === undefined) {
+        return true;
+      }
+      return this.itemInfo.length === 0;
+    },
     isDiscounted() {
-      return Object.prototype.hasOwnProperty.call(this.item, 'original_price');
+      return Object.prototype.hasOwnProperty.call(this.itemInfo, 'original_price');
     },
     addCommaToPrice(value) {
+      if (value === undefined) {
+        return false;
+      }
       return `${value.toLocaleString()}원`;
     },
   },
   computed: {
     getDiscountRate() {
-      const rate = ((this.item.original_price - this.item.price) / this.item.original_price) * 100;
+      const rate = (
+        (this.itemInfo.original_price - this.itemInfo.price)
+      / this.itemInfo.original_price) * 100;
       return `${Number.prototype.toFixed.call(rate, 0)}%`;
     },
   },
@@ -47,6 +65,10 @@ export default {
   cursor: pointer;
   width:140px;
   height:190px;
+}
+
+.item:hover{
+  opacity: .7;
 }
 
 .item-img{
@@ -69,7 +91,7 @@ export default {
   margin-top: 7px;
 }
 .item-price{
-  font-weight: bold;
+  font-weight:bold;
   font-size: 14px;
   margin-top: 3px;
 }
@@ -85,9 +107,16 @@ export default {
   flex-direction: column;
 }
 .item-title{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   font-size: 14px;
+  font-weight: bold;
 }
 .item-content{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   font-size: 12px;
   color: #847F7F;
 }
