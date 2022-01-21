@@ -26,11 +26,7 @@ describe('ItemListItem', () => {
 
     await wrapper.setData({ scrollHeight: 100 });
 
-    const wrappers = mount(Header);
-
-    setTimeout(() => {
-      expect(wrappers.find('.header_unvisible').exists()).toBe(true);
-      expect(wrappers.find('.header_visible').exists()).toBe(false);
-    }, 1000);
+    expect(wrapper.find('.header_unvisible').exists()).toBe(true);
+    expect(wrapper.find('.header_visible').exists()).toBe(false);
   });
 });
