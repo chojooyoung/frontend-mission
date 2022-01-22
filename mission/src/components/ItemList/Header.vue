@@ -18,6 +18,7 @@ export default {
     return {
       headerName: this.pageName,
       scrollHeight: 0,
+      debouncer: null,
     };
   },
   methods: {
@@ -28,7 +29,13 @@ export default {
       return false;
     },
     updateScrollHeight() {
-      this.scrollHeight = window.scrollY;
+      if (this.debouncer) {
+        clearTimeout(this.debouncer);
+        this.debouncer = null;
+      }
+      this.debouncer = setTimeout(() => {
+        this.scrollHeight = window.scrollY;
+      }, 300);
     },
   },
   mounted() {
