@@ -10,7 +10,7 @@
 
 <script>
 export default {
-  name: 'ItemListItem',
+  name: 'Header',
   props: {
     pageName: String,
   },

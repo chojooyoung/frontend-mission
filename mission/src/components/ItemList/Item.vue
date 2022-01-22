@@ -2,7 +2,7 @@
   <div class="item-list-item">
     <div v-if="isNotFound()">상품검색 결과가 없습니다.</div>
     <div v-else>
-      <div class=item>
+      <div class="item">
       <img class="item-img" :src="itemInfo.mainImageUrl"/>
       <LikeButton class="like-button" :isLike="itemInfo.isLiked"/>
       <div class="item-price_info">
@@ -25,7 +25,7 @@
 import LikeButton from '@/components/LikeButton.vue';
 
 export default {
-  name: 'ItemListItem',
+  name: 'Item',
   components: {
     LikeButton,
   },

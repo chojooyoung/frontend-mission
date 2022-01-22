@@ -11,7 +11,7 @@
 import reviewList from '@/data/navigation';
 
 export default {
-  name: 'ItemListPage',
+  name: 'Navigation',
   data() {
     return {
       navigationData: [],
