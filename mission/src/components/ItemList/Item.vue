@@ -4,6 +4,7 @@
     <div v-else>
       <div class=item>
       <img class="item-img" :src="itemInfo.mainImageUrl"/>
+      <LikeButton class="like-button" :isLike="itemInfo.isLiked"/>
       <div class="item-price_info">
         <div class="item-price_rate" v-if="isDiscounted()">{{getDiscountRate}}</div>
         <div class="item-price">{{ addCommaToPrice(itemInfo.price)  }}</div>
@@ -21,8 +22,13 @@
 </template>
 
 <script>
+import LikeButton from '@/components/LikeButton.vue';
+
 export default {
   name: 'ItemListItem',
+  components: {
+    LikeButton,
+  },
   props: {
     item: {},
     key: String,
@@ -62,6 +68,7 @@ export default {
 
 <style>
 .item{
+  position: relative;
   cursor: pointer;
   width:140px;
   height:190px;
@@ -79,7 +86,11 @@ export default {
   height:100%;
   border-radius: 10px;
 }
-
+.like-button{
+  top:10px;
+  left:105px;
+  position: absolute;
+}
 .item-price_info{
   display: flex;
   justify-content: center;

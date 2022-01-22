@@ -9,7 +9,7 @@ const ITEMLIST = {
       original_price: '40000',
       createdDate: '2021-12-10T14:25:30',
       modifiedDate: '2021-12-10T14:25:30',
-      isLiked: false,
+      isLiked: true,
       category: {
         code: 4,
         name: '잡화',
