@@ -4,7 +4,10 @@
     <div class="item-wrapper">
       <Item  class="item-list" v-for="item in items" :item="item" :key="item.id"/>
     </div>
-    <Navgation />
+    <div class="nav-wrapper">
+      <Navgation />
+    </div>
+    <footer></footer>
   </div>
 </template>
 
@@ -58,5 +61,12 @@ export default {
   flex-wrap: wrap;
   justify-content: center;
   gap:20px
+}
+.nav-wrapper{
+  margin-left: calc(-50vw + 50%);
+  position: relative;
+}
+footer{
+  height:100px;
 }
 </style>
