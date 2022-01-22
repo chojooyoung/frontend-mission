@@ -10,7 +10,17 @@ describe('itemListHeader', () => {
 
     const headerWrapper = await mount(Header);
 
-    await expect(headerWrapper.find('.header-wrapper').exists()).toBe(true);
+    expect(headerWrapper.find('.header-wrapper').exists()).toBe(true);
+  });
+
+  it('check HeaderComponent setProps render test', () => {
+    const headerWrapper = mount(Header, {
+      propsData: {
+        pageName: 'headerText',
+      },
+    });
+    expect(headerWrapper.props().pageName).toBe('headerText');
+    expect(headerWrapper.find('.header-wrapper').exists()).toBe(true);
   });
 
   it('check HeaderComponent data binding ', async () => {

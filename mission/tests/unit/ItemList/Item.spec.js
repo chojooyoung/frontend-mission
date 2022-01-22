@@ -9,7 +9,25 @@ describe('ItemListItem', () => {
     expect(wrapper.find('.item-list-item').exists()).toBe(true);
   });
 
-  it('renders ItemComponent props data', async () => {
+  it('renders ItemListItem and props data check', async () => {
+    const wrapper = mount(Item);
+
+    await wrapper.setProps({
+      item: {
+        id: 1,
+        mainImageUrl: 'https://user-images.githubusercontent.com/66211721/149165057-fec02ae9-e0a4-4690-93f8-17328de38ab7.png',
+        title: '남성용 반지갑',
+        content: '짱짱한 가죽 지갑입니다.',
+      },
+    });
+
+    expect(wrapper.props().item.id).toBe(1);
+    expect(wrapper.props().item.mainImageUrl).toBe('https://user-images.githubusercontent.com/66211721/149165057-fec02ae9-e0a4-4690-93f8-17328de38ab7.png');
+    expect(wrapper.props().item.title).toBe('남성용 반지갑');
+    expect(wrapper.props().item.content).toBe('짱짱한 가죽 지갑입니다.');
+  });
+
+  it('renders ItemComponent binding props data ', async () => {
     const wrapper = await mount(Item);
 
     await wrapper.setData({
