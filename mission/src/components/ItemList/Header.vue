@@ -34,6 +34,9 @@ export default {
   mounted() {
     window.addEventListener('scroll', this.updateScrollHeight);
   },
+  beforeUnmount() {
+    window.removeEventListener('scroll', this.updateScrollHeight);
+  },
 };
 </script>
 
