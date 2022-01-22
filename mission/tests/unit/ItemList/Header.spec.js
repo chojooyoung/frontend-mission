@@ -21,6 +21,17 @@ describe('itemListHeader', () => {
     expect(wrapper.find('.header_visible').text()).toEqual('headerText');
   });
 
+  it('check operate handle scroll-event method', () => {
+    const updateScrollHeight = jest.fn();
+    const isShow = jest.fn();
+    // eslint-disable-next-line no-unused-vars
+    const wrapper = mount(Header, {
+      methods: { updateScrollHeight, isShow },
+    });
+    window.dispatchEvent(new Event('scroll'));
+    expect(updateScrollHeight).toHaveBeenCalled();
+  });
+
   it('check HeaderComponent operate scroll-event', async () => {
     const wrapper = mount(Header);
 
