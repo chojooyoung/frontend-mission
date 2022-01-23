@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import reviewList from '@/data/navigation';
+import navList from '@/data/navigation';
 
 export default {
   name: 'Navigation',
@@ -19,7 +19,7 @@ export default {
   },
   methods: {
     initBindData() {
-      this.navigationData = reviewList;
+      this.navigationData = navList;
     },
   },
   created() {

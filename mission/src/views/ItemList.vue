@@ -37,8 +37,7 @@ export default {
     },
 
   },
-  computed: {
-  },
+
   created() {
     this.initBindData();
   },
