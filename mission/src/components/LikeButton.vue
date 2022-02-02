@@ -1,9 +1,9 @@
 <template>
       <div class ="userLikePost" v-if="isLiked=== true">
-        <img  src="../assets/like.svg" alt="" @click="likeButtonClick"/>
+        <img  src="../assets/like_likeButton.svg" alt="" @click="likeButtonClick"/>
       </div>
       <div class ="userDislikePost" v-else>
-        <img  src="../assets/cancelLike.svg" alt="" @click="likeButtonClick"/>
+        <img  src="../assets/unlike_likeButton.svg" alt="" @click="likeButtonClick"/>
       </div>
 
 </template>
