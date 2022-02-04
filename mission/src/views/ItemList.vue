@@ -2,7 +2,10 @@
   <div id="item-list-page">
     <Header class="item-list-header" :pageName="headerText"/>
     <div class="item-wrapper">
-      <Item  class="item-list" v-for="item in items" :item="item" :key="item.id"/>
+      <Item  class="item-list"
+      v-for="item in itemLists"
+      :item="item"
+      :key="item.id"/>
     </div>
     <div class="nav-wrapper">
       <Navgation />
@@ -12,10 +15,12 @@
 </template>
 
 <script>
-import ItemList from '@/data/itemList';
+import RepositoryFactory from '@/api/RepositoryFactory';
 import Header from '@/components/ItemList/Header.vue';
 import Item from '@/components/ItemList/Item.vue';
 import Navgation from '@/components/ItemList/Navigation.vue';
+
+const ItemRepository = RepositoryFactory.get('items');
 
 export default {
   name: 'ItemListPage',
@@ -25,15 +30,16 @@ export default {
   data() {
     return {
       itemLists: '',
-      headerText: '',
-      items: [],
+      headerText: 'My Shopping Mall',
     };
   },
   methods: {
-    initBindData() {
-      this.itemLists = ItemList;
-      this.headerText = ItemList.pageInfo.pageName;
-      this.items = ItemList.items;
+    async initBindData() {
+      const itemListData = await ItemRepository.get();
+      if (itemListData.status === 200) {
+        console.log(itemListData);
+        this.itemLists = itemListData.data.items;
+      }
     },
 
   },
