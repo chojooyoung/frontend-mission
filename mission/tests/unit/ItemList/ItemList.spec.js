@@ -59,6 +59,17 @@ describe('ItemListPage api testing', () => {
       expect(data).toEqual(res);
     });
   });
+
+  it('api binding test', async () => {
+    const items = wrapper.findAll('.item-wrapper');
+    await expect(items).toHaveLength(1);
+  });
+
+  it('renders ItemComponent', async () => {
+    await flushPromises();
+
+    await expect(wrapper.find('.item-wrapper').exists()).toBe(true);
+  });
 });
 
 describe('ItemListPage', () => {
