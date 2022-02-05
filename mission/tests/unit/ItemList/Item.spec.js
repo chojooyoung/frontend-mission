@@ -116,5 +116,4 @@ describe('ItemListItem', () => {
 
     expect(wrapper.find('.item').exists()).toBe(false);
   });
-
 });
