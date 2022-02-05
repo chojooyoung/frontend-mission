@@ -28,23 +28,19 @@ import reviewList from '@/data/review';
 export default {
   name: 'ReviewList',
   props: {
-    reviews: {},
+    reviews: Array,
   },
   data() {
     return {
-      reviewListData: [{}],
+      reviewListData: '',
     };
   },
 
   methods: {
     initBindData() {
-      this.reviewListData = this.reviews;
-      for (let i = 0; i < this.reviewListData.length; i += 1) {
-        if (this.reviewListData[i].writer.length > 3) {
-          this.reviewListData[i].writer = `${this.reviewListData[i]
-            .writer.substr(0, 3)}***`;
-        }
-      }
+      setTimeout(() => {
+        this.reviewListData = this.reviews;
+      }, 1000);
     },
     timeForToday(value) {
       const today = new Date();
