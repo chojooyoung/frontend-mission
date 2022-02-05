@@ -73,8 +73,9 @@ export default {
       return `${Number.prototype.toFixed.call(rate, 0)}%`;
     },
   },
-};
-</script>
+
+  <div class="item-list-item"></div>
+</template>
 
 <style>
 .item{
@@ -141,5 +142,4 @@ export default {
   font-size: 12px;
   color: #847F7F;
 }
-
 </style>
