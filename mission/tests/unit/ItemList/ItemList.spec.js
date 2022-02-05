@@ -61,6 +61,8 @@ describe('ItemListPage api testing', () => {
   });
 
   it('api binding test', async () => {
+    await itemGet.get();
+    await flushPromises();
     const items = wrapper.findAll('.item-wrapper');
     await expect(items).toHaveLength(1);
   });
