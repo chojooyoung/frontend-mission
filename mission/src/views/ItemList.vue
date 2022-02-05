@@ -5,6 +5,7 @@
       <Item  class="item-list"
       v-for="item in itemLists"
       :item="item"
+      :id="item.product_no"
       :key="item.product_no"/>
     </div>
     <div class="nav-wrapper">
@@ -37,7 +38,6 @@ export default {
     async initBindData() {
       const itemListData = await ItemRepository.get();
       if (itemListData.status === 200) {
-        console.log(itemListData);
         this.itemLists = itemListData.data.items;
       }
     },

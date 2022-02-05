@@ -1,9 +1,11 @@
 <template>
   <div class="item-list-item">
+      <router-link data-test="router-iteminfo" :to="`/item/${this.id}`">
     <div v-if="isNotFound()">상품검색 결과가 없습니다.</div>
     <div v-else>
       <div class="item" >
-      <img class="item-img" :src="itemInfo.image" @click="pushItemInfoPage"/>
+      <img class="item-img"
+       :src="itemInfo.image"/>
       <LikeButton class="like-button" :isLike="itemInfo.isLiked"/>
       <div class="item-price_info">
         <div class="item-price_rate" v-if="isDiscounted()">{{getDiscountRate}}</div>
@@ -18,6 +20,7 @@
       </div>
     </div>
 </div>
+      </router-link>
   </div>
 </template>
 
@@ -32,6 +35,7 @@ export default {
   props: {
     item: {},
     key: String,
+    id: { type: String, default: '' },
   },
   data() {
     return {
