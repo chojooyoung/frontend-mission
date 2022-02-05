@@ -93,7 +93,6 @@ export default {
     async initBindData() {
       const itemInfos = await ItemRepository.getItem(this.itemId);
       if (itemInfos.status === 200) {
-        console.log(itemInfos);
         this.itemInfo = itemInfos.data.item;
       }
     },

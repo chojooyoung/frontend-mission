@@ -38,7 +38,6 @@ export default {
     async initBindData() {
       const wishListData = await WishRepository.get();
       if (wishListData.status === 200) {
-        console.log(wishListData);
         this.itemLists = wishListData.data.items;
       }
     },
