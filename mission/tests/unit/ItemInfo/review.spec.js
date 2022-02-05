@@ -1,4 +1,8 @@
-it('redners reviewList', () => {
+import { mount } from '@vue/test-utils';
+import ReviewList from '@/components/ReviewList.vue';
+
+describe('ItemInfoPage', () => {
+  it('redners reviewList', () => {
     const Reviewwrapper = mount(ReviewList);
     expect(Reviewwrapper.find('.review-list').exists()).toBe(true);
   });
