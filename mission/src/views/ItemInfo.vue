@@ -1,29 +1,27 @@
 <template>
 <div id='item-info-page'>
   <div class="info">
-    <img class="info-main_img" :src="`${mainImageUrl}`" alt="itemImg"
-    style="width:100%;
-          height:100%;
-          max-width: 375px;
-          max-height: 375px;"
-    />
+    <img class="info-main_img" :src="`${itemInfo.image}`" alt="itemImg"/>
     <div class="info-seller-wrapper">
       <!-- 판매자 정보 -->
       <div class="info-seller">
-        <div v-if="author.profileImageUrl === 'null'">
+        <div v-if="itemInfo.seller.profile_image === 'null'">
           <img class="info-seller-defaultImg"
               src="../assets/basicUserAvatar.svg"
               alt="deafaultUserImg"/>
         </div>
         <div v-else>
           <img class="info-seller-profileImg"
-               :src="`${author.profileImageUrl}`"
+               :src="`${itemInfo.seller.profile_image}`"
                alt="sellerProfileImg"
           />
         </div>
         <div class="info-seller-subinfo">
-          <div class="info-seller-subinfo-name">{{author.nickname}}</div>
-          <div class="info-seller-subinfo-tag">{{author.tag}}</div>
+          <div class="info-seller-subinfo-name">{{itemInfo.seller.name}}</div>
+          <span class="info-seller-subinfo-tag"
+          v-for="tag in itemInfo.seller.hash_tags"
+          :key="tag"
+          >#{{tag}}</span>
         </div>
         <Like class="like-button" :isLike="isLiked" />
       </div>
@@ -31,18 +29,18 @@
     <div class="divider"></div>
       <!-- 상품 정보 -->
     <div class="info-item">
-      <div class="info-item-title">{{title}}</div>
+      <div class="info-item-title">{{itemInfo.name}}</div>
       <div class="info-item-priceinfo">
-        <div v-if="isDiscount===false">
-          <div class="info-item-priceinfo-price">{{priceAddComma}}</div>
+        <div v-if="isDiscounted===false">
+          <div class="info-item-priceinfo-price">{{itemInfo.price}}</div>
         </div>
         <div v-else>
           <div class="discount-price-info">
-            <div class="info-item-priceinfo-rate">{{discountRate}}%</div>
-            <div class="info-item-priceinfo-discountPrice">{{priceToBuyPriceAddComma}}
+            <div class="info-item-priceinfo-rate">{{getDiscountRate}}</div>
+            <div class="info-item-priceinfo-discountPrice">{{itemInfo.price}}
               <span class="won">원</span>
             </div>
-            <div class="info-item-priceinfo-origin_price">{{priceAddComma}}
+            <div class="info-item-priceinfo-origin_price">{{itemInfo.original_price}}
               <span class="originwon">원</span>
             </div>
           </div>
@@ -52,20 +50,15 @@
     </div>
       <div class="divider"></div>
 
-      <div class="info-content" v-html="content"></div>
+      <div class="info-content" v-html="itemInfo.description"></div>
 
       <div class="info-review">리뷰</div>
       <div class="divider"></div>
-      <ReviewList class="reviewlist" :postId="id"/>
+      <ReviewList class="reviewlist" :reviews="itemInfo.reviews"/>
 
     <!-- 구매버튼 -->
     <div class="bottom-botton">
-      <div v-if="itemInfo[0].isDiscount===false">
-        <button class="buy-botton">{{priceAddComma}} 원 구매</button>
-      </div>
-      <div v-else>
-        <button class="buy-botton">{{priceToBuyPriceAddComma}} 원 구매</button>
-      </div>
+        <button class="buy-botton">{{itemInfo.price}} 원 구매</button>
     </div>
   </div>
   <footer></footer>
@@ -76,60 +69,56 @@
 import itemInfo from '@/data/itemInfo';
 import Like from '@/components/LikeButton.vue';
 import ReviewList from '@/components/ReviewList.vue';
+import RepositoryFactory from '@/api/RepositoryFactory';
+
+const ItemRepository = RepositoryFactory.get('items');
 
 export default {
   name: 'ItemInfoPage',
   components: {
     Like, ReviewList,
   },
+  props: {
+    itemId: { type: String, default: '' },
+  },
   data() {
     return {
-      itemInfo,
-      id: '',
-      author: {},
-      mainImageUrl: '',
-      title: '',
-      content: '',
-      contentImageUrl: '',
-      price: 0,
-      createdDate: '',
-      modifiedDate: '',
-      likeCount: 0,
-      viewCount: 0,
-      isLiked: '',
-      isDiscount: '',
-      discountRate: 0,
-      discountPrice: 0,
-      priceToBuy: 0,
+      itemInfo: {
+        seller: {},
+        reviews: [{}],
+      },
     };
   },
   methods: {
-    initBindData() {
-      this.id = itemInfo[0].id;
-      this.author = itemInfo[0].author;
-      this.mainImageUrl = itemInfo[0].mainImageUrl;
-      this.author = itemInfo[0].author;
-      this.isLiked = itemInfo[0].isLiked;
-      this.title = itemInfo[0].title;
-      this.price = itemInfo[0].price;
-      this.discountRate = itemInfo[0].discountRate;
-      this.discountPrice = itemInfo[0].discountPrice;
-      this.priceToBuy = itemInfo[0].priceToBuy;
-      this.content = itemInfo[0].content;
+    async initBindData() {
+      const itemInfos = await ItemRepository.getItem(this.itemId);
+      if (itemInfos.status === 200) {
+        console.log(itemInfos);
+        this.itemInfo = itemInfos.data.item;
+      }
     },
     addCommaToprice(price) {
       return price.replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
     },
+    isDiscounted() {
+      return Object.prototype.hasOwnProperty.call(this.itemInfo, 'original_price');
+    },
+    addCommaToPrice(value) {
+      if (value === undefined) {
+        return false;
+      }
+      return `${value.toLocaleString()}원`;
+    },
   },
   computed: {
-    priceAddComma() {
-      return this.addCommaToprice(this.price);
+    getDiscountRate() {
+      const rate = (
+        (this.itemInfo.original_price - this.itemInfo.price)
+      / this.itemInfo.original_price) * 100;
+      return `${Number.prototype.toFixed.call(rate, 0)}%`;
     },
-    discountPriceAddComma() {
-      return this.addCommaToprice(this.discountPrice);
-    },
-    priceToBuyPriceAddComma() {
-      return this.addCommaToprice(this.priceToBuy);
+    getDiscountPrice() {
+      return this.itemInfo.original_price - this.itemInfo.price;
     },
   },
   created() {
@@ -173,7 +162,14 @@ export default {
 .buy-botton:hover{
   background-color: gray;
   }
+.info-main_img{
+  width:100%;
+  height:100%;
+  max-width: 375px;
+  max-height: 375px;
+}
 .info-seller-wrapper{
+  margin-top:20px;
   max-width: 340px;
   width:100%;
 }
@@ -206,7 +202,6 @@ export default {
   height:100%;
   text-align: left;
 }
-
 .info-item-title{
   font-size: 30px;
   font-weight: bold;
@@ -266,7 +261,9 @@ export default {
 }
 
 .like-button{
-  margin-left: auto;
+  position: relative;
+  top:20px;
+  left:160px;
   cursor: pointer;
 }
 footer{

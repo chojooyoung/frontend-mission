@@ -4,14 +4,14 @@
       <div class="review-list-review">
         <div class="review-list-reviewer" >
           <div class="reviewer-nickname">
-            {{review.reviewer.nickname}}
+            {{review.writer}}
           </div>
-          <div class="reviewer-time">{{this.timeForToday(review.createdDate)}}</div>
+          <div class="reviewer-time">{{this.timeForToday(review.created)}}</div>
         </div>
         <div class="review-title">{{review.title}}</div>
         <div class="review-content">{{review.content}}</div>
       </div>
-      <img :src="review.contentImageUrl" class="review-list-review_img"
+      <img :src="review.img" class="review-list-review_img"
             style="width:100%;
             height:100%;
             max-width: 64px;
@@ -28,7 +28,7 @@ import reviewList from '@/data/review';
 export default {
   name: 'ReviewList',
   props: {
-    postId: Number,
+    reviews: {},
   },
   data() {
     return {
@@ -38,11 +38,11 @@ export default {
 
   methods: {
     initBindData() {
-      this.reviewListData = reviewList;
+      this.reviewListData = this.reviews;
       for (let i = 0; i < this.reviewListData.length; i += 1) {
-        if (this.reviewListData[i].reviewer.nickname.length > 3) {
-          this.reviewListData[i].reviewer.nickname = `${this.reviewListData[i]
-            .reviewer.nickname.substr(0, 3)}***`;
+        if (this.reviewListData[i].writer.length > 3) {
+          this.reviewListData[i].writer = `${this.reviewListData[i]
+            .writer.substr(0, 3)}***`;
         }
       }
     },

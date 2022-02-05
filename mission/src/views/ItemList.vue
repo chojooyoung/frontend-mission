@@ -5,7 +5,7 @@
       <Item  class="item-list"
       v-for="item in itemLists"
       :item="item"
-      :key="item.id"/>
+      :key="item.product_no"/>
     </div>
     <div class="nav-wrapper">
       <Navgation />
