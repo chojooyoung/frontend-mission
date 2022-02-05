@@ -5,19 +5,20 @@ import itemInfo from '@/data/itemInfo';
 import Like from '@/components/LikeButton.vue';
 
 describe('ItemInfoPage', () => {
-  it('redners ItemInfoPage', () => {
-    const wrapper = mount(ItemInfoPage);
+  let wrapper;
 
+  beforeEach(() => {
+    wrapper = mount(ItemInfoPage);
+  });
+  it('redners ItemInfoPage', () => {
     expect(wrapper.find('#item-info-page').exists()).toBe(true);
   });
 
   it('has mainimage in ItemInfoPage', () => {
-    const wrapper = mount(ItemInfoPage);
     expect(wrapper.find('.info-main_img').exists()).toBe(true);
   });
 
   it('renders and viding data an item-imgae', async () => {
-    const wrapper = mount(ItemInfoPage);
     await wrapper.setData({
       itemInfo:
       {
@@ -34,19 +35,17 @@ describe('ItemInfoPage', () => {
   });
 
   it('checks seller default profileimg rendering', async () => {
-    const wrapper = mount(ItemInfoPage);
-    await wrapper.setData({ author: { profileImageUrl: 'null' } });
+    await wrapper.setData({ author: { image: 'null' } });
     expect(wrapper.find('.info-seller-defaultImg').exists()).toBe(true);
     expect(wrapper.find('.info-seller-profileImg').exists()).toBe(false);
   });
 
   it('renders and viding data an seller-info', async () => {
-    const wrapper = mount(ItemInfoPage);
     await wrapper.setData({
-      item: {
+      itemInfo: {
         seller: {
-          tag: '#지갑 #잡화',
-          nickname: '지갑전문',
+          tag: ['지갑', '잡화'],
+          name: '지갑전문',
         },
       },
     });
@@ -55,7 +54,6 @@ describe('ItemInfoPage', () => {
   });
 
   it('renders and viding data an item-info', async () => {
-    const wrapper = mount(ItemInfoPage);
     await wrapper.setData({
       itemInfo: {
         name: '지갑',
@@ -64,49 +62,9 @@ describe('ItemInfoPage', () => {
       },
     });
     expect(wrapper.find('.info-item-title').text()).toEqual('지갑');
-    expect(wrapper.find('.info-item-priceinfo-origin_price').text()).toEqual('100,000 원');
+    expect(wrapper.find('.info-item-priceinfo-price').text()).toEqual('100,000 원');
     expect(wrapper.find('.content').text()).toEqual('호불호 없는 지갑입니다.');
   });
 
-  // 리뷰 컴포넌트 테스팅
-  it('redners reviewList', () => {
-    const wrapper = mount(ReviewList);
-    expect(wrapper.find('.review-list').exists()).toBe(true);
-  });
 
-  it('checks reviewer nickname filter by method', async () => {
-    const wrapper = mount(ReviewList);
-    await wrapper.setData({
-      reviews: {
-        name: 'chojoo',
-      },
-    });
-    expect(wrapper.find('.reviewer-nickname').text()).toEqual('cho***');
-  });
-  it('checks review time filter by method', async () => {
-    const wrapper = mount(ReviewList);
-    await wrapper.setData({
-      created: '2021-12-02T19:19:18',
-    });
-    expect(wrapper.find('.reviewer-time').text()).toEqual('44일전');
-  });
-
-  it('redners reviewList-title', () => {
-    const wrapper = mount(ReviewList);
-    expect(wrapper.find('.review-title').exists()).toBe(true);
-  });
-  it('redners reviewList-content', () => {
-    const wrapper = mount(ReviewList);
-    expect(wrapper.find('.review-content').exists()).toBe(true);
-  });
-
-  it('redners reviewList-img', () => {
-    const wrapper = mount(ReviewList);
-    expect(wrapper.find('.review-list-review_img').exists()).toBe(true);
-  });
-
-  it('checks the img style(square)', async () => {
-    const wrapper = mount(ReviewList);
-    expect(wrapper.find('.review-list-review_img').element.style).toContain('width');
-  });
-});
+  
