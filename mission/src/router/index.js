@@ -1,10 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import NotFound from '@/views/NotFound.vue';
 import ItemListPage from '@/views/ItemList.vue';
-import ItemInfo from '@/views/ItemInfo.vue';
-import WishList from '@/views/WishList.vue';
+import userRoute from './user';
 import wishRoute from './wish';
 import itemRoute from './item';
+import cartRoute from './cart';
 
 let routes = [
   {
@@ -12,17 +12,6 @@ let routes = [
     name: 'Home',
     component: ItemListPage,
   },
-  // {
-  //   path: '/item/:itemId',
-  //   name: 'itemInfo',
-  //   component: ItemInfo,
-  //   props: true,
-  // },
-  // {
-  //   path: '/WishList',
-  //   name: 'WishList',
-  //   component: WishList,
-  // },
 
   {
     path: '/about',
@@ -37,7 +26,7 @@ let routes = [
     component: NotFound,
   },
 ];
-routes = [].concat(routes, itemRoute, wishRoute);
+routes = [].concat(routes, itemRoute, wishRoute, userRoute, cartRoute);
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
