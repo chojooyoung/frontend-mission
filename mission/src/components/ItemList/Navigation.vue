@@ -1,8 +1,10 @@
 <template>
 <div class="navigation-wrapper">
     <div class="navgation-bar" v-for="navItem in navigationData" :key="navItem.id">
-        <img class="navigation-bar_icon" :src="navItem.navImg"/>
-        <div class="navgation-bar_name">{{navItem.navText}}</div>
+        <router-link :to="`/${navItem.RouterNav}`" :data-test="`router-${navItem.RouterNav}`">
+          <img class="navigation-bar_icon" :src="navItem.navImg"/>
+        </router-link>
+          <div class="navgation-bar_name">{{navItem.navText}}</div>
     </div>
 </div>
 </template>
