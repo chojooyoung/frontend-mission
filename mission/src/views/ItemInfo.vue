@@ -24,6 +24,21 @@
           >#{{tag}}</span>
         </div>
         <Like class="like-button" :isLike="isLiked" />
+        <img
+        data
+        v-if="getisPutItemCart()"
+        @click="cartButtonClick()"
+        data-test="itemInfo-store-iscarted"
+        class="cart-img"
+        src="../assets/isCarted.svg"
+        alt="caet-img"/>
+        <img
+        v-else
+        @click="cartButtonClick()"
+        data-test="itemInfo-store-discarted"
+        class="cart-img"
+        src="../assets/navigationCart.svg"
+        alt="caet-img"/>
       </div>
     </div>
     <div class="divider"></div>
@@ -66,7 +81,7 @@
 </template>
 
 <script>
-import itemInfo from '@/data/itemInfo';
+import { mapGetters, mapMutations } from 'vuex';
 import Like from '@/components/LikeButton.vue';
 import ReviewList from '@/components/ReviewList.vue';
 import RepositoryFactory from '@/api/RepositoryFactory';
@@ -87,14 +102,32 @@ export default {
         seller: {},
         reviews: [{}],
       },
+      isPutItemCart: false,
     };
   },
   methods: {
+    ...mapGetters('cartList', ['getisPutItemCart']),
+    ...mapMutations('cartList', ['addToCartList', 'deleteCartList', 'changeCartListState']),
     async initBindData() {
       const itemInfos = await ItemRepository.getItem(this.itemId);
       if (itemInfos.status === 200) {
         this.itemInfo = itemInfos.data.item;
       }
+    },
+    getIscarted() {
+      return this.getisPutItemCart();
+    },
+    cartButtonClick() {
+      if (this.getIscarted() === true) {
+        this.deleteCartList(this.itemInfo);
+        // eslint-disable-next-line no-alert
+        alert('장바구니에서 제거되었습니다.');
+      } else {
+        this.addToCartList(this.itemInfo);
+        // eslint-disable-next-line no-alert
+        alert('장바구니에 추가 하였습니다.');
+      }
+      this.changeCartListState();// this.$store.commit('cartList/changeCartListState');
     },
     addCommaToprice(price) {
       return price.replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
@@ -193,6 +226,12 @@ export default {
   color:#847F7F;
   font-size: 12px;
   }
+.cart-img{
+  margin-top:17px;
+  margin-left: auto;
+  width:25px;
+  height:25px;
+}
 
 .info-item{
   margin-top:20px;
