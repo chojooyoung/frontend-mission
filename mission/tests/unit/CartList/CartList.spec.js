@@ -1,9 +1,26 @@
-import { mount } from '@vue/test-utils';
+import { mount, flushPromises } from '@vue/test-utils';
 import { createStore } from 'vuex';
+import { createRouter, createWebHistory } from 'vue-router';
 import CartListPage from '@/views/CartList.vue';
+import BuyRoute from '@/router/buy';
+import ItemListPage from '@/views/ItemList.vue';
+import App from '@/App.vue';
 
 describe('CartListPage', () => {
   let wrapper;
+  let routes = [
+    {
+      path: '/',
+      name: 'Home',
+      component: ItemListPage,
+    },
+  ];
+  routes = [].concat(routes, BuyRoute);
+
+  const router = createRouter({
+    history: createWebHistory(process.env.BASE_URL),
+    routes,
+  });
   const store = createStore({
     namespaced: true,
     state() { // 함수로 반환 왜? 데이터기 때문에.
@@ -31,10 +48,26 @@ describe('CartListPage', () => {
   beforeEach(() => {
     wrapper = mount(CartListPage, {
       global: {
-        plugins: [store],
+        plugins: [store, router],
       },
     });
   });
+
+  it('routing test', async () => {
+    router.push('/');
+    await router.isReady();
+
+    const Appwrapper = mount(App, {
+      global: {
+        plugins: [router],
+      },
+    });
+
+    await wrapper.find('[data-test="router-buy"]').trigger('click');
+    await flushPromises();
+    expect(Appwrapper.find('.item-buy-page').exists()).toBe(true);
+  });
+
   it('renders HeaderComponent', () => {
     expect(wrapper.find('.item-list-header').exists()).toBe(true);
   });
