@@ -3,7 +3,7 @@
     <Header class="item-list-header" :pageName="headerText"/>
     <div class="top-wrapper">
       <div class="cart-title">장바구니 목록</div>
-      <router-link data-test="router-iteminfo" :to="'/Buy'">
+      <router-link data-test="router-buy" :to="'/Buy'">
         <button class="buy-button">구매</button>
       </router-link>
     </div>
