@@ -145,4 +145,11 @@ export default {
   font-size: 12px;
   color: #847F7F;
 }
+.delete{
+  border: solid 1px white;
+  background: black;
+  color:white;
+  border-radius: 5px;
+
+}
 </style>
