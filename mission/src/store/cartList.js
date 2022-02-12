@@ -13,6 +13,17 @@ export default {
     getisPutItemCart(state) {
       return state.isPutItemCart;
     },
+    isCarted(state) {
+      return state.cartLists.length !== 0;
+    },
+    cartListsLength(state) {
+      return state.cartLists.length;
+    },
+    cartListsTotalPrice(state) {
+      const price = state.cartLists.map((item) => item.price);
+      const reducer = (accumulator, curr) => accumulator + curr;
+      return price.reduce(reducer);
+    },
 
   },
   mutations: { // 데이터를 수정하는 권한
@@ -23,12 +34,8 @@ export default {
       const arr = state.cartLists.filter((item) => item.product_no !== itemNumber);
       state.cartLists = arr;
     },
-    // eslint-disable-next-line no-unused-vars
-    changeCartListToTrue(state) {
-      state.isPutItemCart = true;
-    },
-    changeCartListToFalse(state) {
-      state.isPutItemCart = false;
+    clearCartList(state) {
+      state.cartLists = [];
     },
     changeCartListState(state) {
       state.isPutItemCart = !state.isPutItemCart;
