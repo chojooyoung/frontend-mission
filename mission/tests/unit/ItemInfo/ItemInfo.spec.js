@@ -69,13 +69,6 @@ describe('ItemInfoPage', () => {
           );
           state.cartLists = arr;
         },
-        // eslint-disable-next-line no-unused-vars
-        changeCartListToTrue(state) {
-          state.isPutItemCart = true;
-        },
-        changeCartListToFalse(state) {
-          state.isPutItemCart = false;
-        },
         changeCartListState(state) {
           state.isPutItemCart = !state.isPutItemCart;
         },
