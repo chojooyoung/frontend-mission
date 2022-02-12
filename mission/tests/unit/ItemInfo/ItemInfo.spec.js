@@ -1,4 +1,4 @@
-import { mount, flushPromises } from '@vue/test-utils';
+import { mount } from '@vue/test-utils';
 import { createStore } from 'vuex';
 import ItemInfoPage from '@/views/ItemInfo.vue';
 import itemInfo from '@/data/itemInfo';
@@ -69,6 +69,13 @@ describe('ItemInfoPage', () => {
           );
           state.cartLists = arr;
         },
+        // eslint-disable-next-line no-unused-vars
+        changeCartListToTrue(state) {
+          state.isPutItemCart = true;
+        },
+        changeCartListToFalse(state) {
+          state.isPutItemCart = false;
+        },
         changeCartListState(state) {
           state.isPutItemCart = !state.isPutItemCart;
         },
@@ -84,11 +91,13 @@ describe('ItemInfoPage', () => {
 
   it('store mutation test', async () => {
     jest.spyOn(window, 'alert').mockImplementation(() => { });
-    const testText = '장바구니에 추가 하였습니다.';
+    const testText = '상품이 장바구니에 추가 하였습니다.';
+    await itemGet.getItem();
     await wrapper.find('[data-test="itemInfo-store-discarted"]').trigger('click');
+    setTimeout(() => {
+      expect(wrapper.find('[data-test="itemInfo-store-iscarted"]').exists()).toBe(true);
+    }, 200);
     expect(window.alert).toBeCalledWith(testText);
-    await flushPromises();
-    expect(wrapper.find('[data-test="itemInfo-store-discarted"]').exists()).toBe(true);
   });
 
   it('api repository call test', () => {

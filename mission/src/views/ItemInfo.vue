@@ -106,7 +106,7 @@ export default {
     };
   },
   methods: {
-    ...mapGetters('cartList', ['getisPutItemCart']),
+    ...mapGetters('cartList', ['getisPutItemCart', 'getCartList']),
     ...mapMutations('cartList', ['addToCartList', 'deleteCartList', 'changeCartListState']),
     async initBindData() {
       const itemInfos = await ItemRepository.getItem(this.itemId);
@@ -119,13 +119,13 @@ export default {
     },
     cartButtonClick() {
       if (this.getIscarted() === true) {
-        this.deleteCartList(this.itemInfo);
+        this.deleteCartList(this.itemInfo.product_no);
         // eslint-disable-next-line no-alert
         alert('장바구니에서 제거되었습니다.');
       } else {
         this.addToCartList(this.itemInfo);
         // eslint-disable-next-line no-alert
-        alert('장바구니에 추가 하였습니다.');
+        alert('상품이 장바구니에 추가 하였습니다.');
       }
       this.changeCartListState();// this.$store.commit('cartList/changeCartListState');
     },

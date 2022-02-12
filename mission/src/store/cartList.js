@@ -19,8 +19,8 @@ export default {
     addToCartList(state, addItemObject) {
       state.cartLists.push(addItemObject);
     },
-    deleteCartList(state, deleteItemObject) {
-      const arr = state.cartLists.filter((item) => item.product_no !== deleteItemObject.product_no);
+    deleteCartList(state, itemNumber) {
+      const arr = state.cartLists.filter((item) => item.product_no !== itemNumber);
       state.cartLists = arr;
     },
     // eslint-disable-next-line no-unused-vars
