@@ -5,8 +5,8 @@
       <Item  class="item-list"
       v-for="item in itemLists"
       :item="item"
-      :id="item.product_no"
-      :key="item.product_no"/>
+      :key="item.product_no"
+      :id="item.product_no"/>
     </div>
     <div class="nav-wrapper">
       <Navgation />
@@ -21,7 +21,7 @@ import Header from '@/components/ItemList/Header.vue';
 import Item from '@/components/ItemList/Item.vue';
 import Navgation from '@/components/ItemList/Navigation.vue';
 
-const ItemRepository = RepositoryFactory.get('items');
+const WishRepository = RepositoryFactory.get('wish');
 
 export default {
   name: 'ItemListPage',
@@ -31,14 +31,14 @@ export default {
   data() {
     return {
       itemLists: '',
-      headerText: 'My Shopping Mall',
+      headerText: 'My Shopping Mall-WishList',
     };
   },
   methods: {
     async initBindData() {
-      const itemListData = await ItemRepository.get();
-      if (itemListData.status === 200) {
-        this.itemLists = itemListData.data.items;
+      const wishListData = await WishRepository.get();
+      if (wishListData.status === 200) {
+        this.itemLists = wishListData.data.items;
       }
     },
 

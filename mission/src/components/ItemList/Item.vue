@@ -1,9 +1,11 @@
 <template>
   <div class="item-list-item">
+      <router-link data-test="router-iteminfo" :to="`/item/${this.id}`">
     <div v-if="isNotFound()">상품검색 결과가 없습니다.</div>
     <div v-else>
-      <div class="item">
-      <img class="item-img" :src="itemInfo.mainImageUrl"/>
+      <div class="item" >
+      <img class="item-img"
+       :src="itemInfo.image"/>
       <LikeButton class="like-button" :isLike="itemInfo.isLiked"/>
       <div class="item-price_info">
         <div class="item-price_rate" v-if="isDiscounted()">{{getDiscountRate}}</div>
@@ -13,11 +15,12 @@
         </div>
       </div>
       <div class="item-text_info">
-        <div class="item-title">{{itemInfo.title}}</div>
-        <div class="item-content">{{itemInfo.content}}</div>
+        <div class="item-title">{{itemInfo.name}}</div>
+        <div class="item-content">{{itemInfo.description}}</div>
       </div>
     </div>
 </div>
+      </router-link>
   </div>
 </template>
 
@@ -32,6 +35,7 @@ export default {
   props: {
     item: {},
     key: String,
+    id: { type: String, default: '' },
   },
   data() {
     return {
@@ -54,6 +58,12 @@ export default {
       }
       return `${value.toLocaleString()}원`;
     },
+    pushItemInfoPage() {
+      this.$router.push({
+        name: 'itemInfo',
+        params: { itemId: this.itemInfo.product_no },
+      });
+    },
   },
   computed: {
     getDiscountRate() {
@@ -63,9 +73,8 @@ export default {
       return `${Number.prototype.toFixed.call(rate, 0)}%`;
     },
   },
-
-  <div class="item-list-item"></div>
-</template>
+};
+</script>
 
 <style>
 .item{
