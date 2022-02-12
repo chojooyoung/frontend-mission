@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from 'vuex';
+import { mapGetters } from 'vuex';
 import Header from '@/components/ItemList/Header.vue';
 import Navgation from '@/components/ItemList/Navigation.vue';
 import Item from '@/components/CartList/cartItem.vue';

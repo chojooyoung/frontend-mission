@@ -1,7 +1,6 @@
 import { createStore } from 'vuex';
 import { mount, flushPromises } from '@vue/test-utils';
 import { createRouter, createWebHistory } from 'vue-router';
-import itemGet from '@/api/repositories/ItemRepository';
 import itemRoute from '@/router/cart';
 import ItemListPage from '@/views/ItemList.vue';
 import CartItem from '@/components/CartList/cartItem.vue';
@@ -72,6 +71,7 @@ describe('ItemListItem', () => {
     });
 
     await wrapper.find('[data-test="router-iteminfo"]').trigger('click');
+    await flushPromises();
     expect(Appwrapper.find('.info').exists()).toBe(true);
   });
 
