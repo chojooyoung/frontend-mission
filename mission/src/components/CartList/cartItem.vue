@@ -50,7 +50,6 @@ export default {
 
     isNotFound() {
       if (this.itemInfo === undefined) {
-        console.log(this.itemInfo);
         return true;
       }
       return this.itemInfo.length === 0;

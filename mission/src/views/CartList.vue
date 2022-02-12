@@ -47,7 +47,6 @@ export default {
     ...mapGetters('cartList', ['getCartList']),
     initBindData() {
       this.cartLists = this.getCartList();
-      console.log(this.cartLists);
     },
 
     isBindData() {
