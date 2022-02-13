@@ -5,6 +5,7 @@ import userRoute from './user';
 import wishRoute from './wish';
 import itemRoute from './item';
 import cartRoute from './cart';
+import buyRoute from './buy';
 
 let routes = [
   {
@@ -26,7 +27,7 @@ let routes = [
     component: NotFound,
   },
 ];
-routes = [].concat(routes, itemRoute, wishRoute, userRoute, cartRoute);
+routes = [].concat(routes, itemRoute, wishRoute, userRoute, cartRoute, buyRoute);
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),

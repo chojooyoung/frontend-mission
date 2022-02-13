@@ -1,4 +1,5 @@
 import { mount } from '@vue/test-utils';
+import { createStore } from 'vuex';
 import ItemInfoPage from '@/views/ItemInfo.vue';
 import itemInfo from '@/data/itemInfo';
 import Like from '@/components/LikeButton.vue';
@@ -41,8 +42,55 @@ describe('ItemInfoPage', () => {
       },
     };
 
+    const store = createStore({
+      namespaced: true,
+      state() { // 함수로 반환 왜? 데이터기 때문에.
+        return {
+          cartLists: [],
+          isPutItemCart: '',
+        };
+      },
+      getters: {
+        getCartList(state) {
+          return state.cartLists;
+        },
+        getisPutItemCart(state) {
+          return state.isPutItemCart;
+        },
+
+      },
+      mutations: { // 데이터를 수정하는 권한
+        addToCartList(state, addItemObject) {
+          state.cartLists.push(addItemObject);
+        },
+        deleteCartList(state, deleteItemObject) {
+          const arr = state.cartLists.filter(
+            (item) => item.product_no !== deleteItemObject.product_no,
+          );
+          state.cartLists = arr;
+        },
+        changeCartListState(state) {
+          state.isPutItemCart = !state.isPutItemCart;
+        },
+      },
+    });
     itemGet.getItem = jest.fn().mockResolvedValue(res);
-    wrapper = mount(ItemInfoPage);
+    wrapper = mount(ItemInfoPage, {
+      global: {
+        plugins: [store],
+      },
+    });
+  });
+
+  it('store mutation test', async () => {
+    jest.spyOn(window, 'alert').mockImplementation(() => { });
+    const testText = '상품이 장바구니에 추가 하였습니다.';
+    await itemGet.getItem();
+    await wrapper.find('[data-test="itemInfo-store-discarted"]').trigger('click');
+    setTimeout(() => {
+      expect(wrapper.find('[data-test="itemInfo-store-iscarted"]').exists()).toBe(true);
+    }, 200);
+    expect(window.alert).toBeCalledWith(testText);
   });
 
   it('api repository call test', () => {
