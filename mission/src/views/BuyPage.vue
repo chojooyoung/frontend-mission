@@ -6,13 +6,13 @@
         <h2>상품 정보</h2>
         <div class="divider"></div>
         <div class="item-count">상품 갯수</div>
-        총 {{this.getListcount()}} 개
+        총 {{getListcount()}} 개
         <div class="item-name">상품명</div>
         <div v-for="item in cartLists" :key="item.product_no">
             <div data-test="input-orderlist-name">{{item.name}}</div>
         </div>
         <div class="price">
-            총 가격: {{this.listTotalPrice()}}원
+            총 가격: {{listTotalPrice()}}원
         </div>
         <h2>주문 정보</h2>
         <div class="divider"></div>
